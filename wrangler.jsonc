@@ -3,6 +3,9 @@
   "main": "src/index.ts",
   "compatibility_date": "2025-09-01",
   "compatibility_flags": ["nodejs_compat"],
+  // Una sola URL pública, la del despliegue de main: sin URLs de vista previa que corran otra versión.
+  "workers_dev": true,
+  "preview_urls": false,
   "ai": { "binding": "AI", "remote": true },
   // El webhook deja cada audio en la cola y el consumidor lo transcribe (hasta 15 min por audio).
   // Por la cola pasan solo ids; se borran al procesarse. Crear una vez: npx wrangler queues create transcriptor-audios
