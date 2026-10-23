@@ -1,0 +1,21 @@
+{
+  "name": "transcriptor-whatsapp",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "ai": { "binding": "AI", "remote": true },
+  // El webhook deja cada audio en la cola y el consumidor lo transcribe (hasta 15 min por audio).
+  // Por la cola pasan solo ids; se borran al procesarse. Crear una vez: npx wrangler queues create transcriptor-audios
+  "queues": {
+    "producers": [{ "binding": "COLA", "queue": "transcriptor-audios" }],
+    "consumers": [{ "queue": "transcriptor-audios", "max_batch_size": 1, "max_batch_timeout": 0, "max_retries": 2 }]
+  },
+  // Sin logs guardados en Cloudflare: lo que se imprime solo se ve en vivo con `npm run logs`.
+  "observability": { "enabled": false },
+  "vars": {
+    // Idioma de los audios (código ISO). Vacío = Whisper lo detecta solo.
+    "IDIOMA": "es",
+    "MODELO": "@cf/openai/whisper-large-v3-turbo"
+  }
+  // Secretos (wrangler secret put ...): WHATSAPP_TOKEN, WHATSAPP_PHONE_ID, META_APP_SECRET, WHATSAPP_VERIFY_TOKEN
+}

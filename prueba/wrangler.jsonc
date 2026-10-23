@@ -1,0 +1,9 @@
+// Solo para `npm run probar`: el modelo corre en Cloudflare (cobra lo mismo que en producción).
+{
+  "name": "transcriptor-whatsapp-prueba",
+  "main": "worker.ts",
+  "compatibility_date": "2025-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "ai": { "binding": "AI" },
+  "vars": { "IDIOMA": "es", "MODELO": "@cf/openai/whisper-large-v3-turbo" }
+}

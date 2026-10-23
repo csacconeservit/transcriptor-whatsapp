@@ -1,0 +1,22 @@
+{
+  "name": "transcriptor-whatsapp",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "logs": "wrangler tail",
+    "probar": "wrangler dev -c prueba/wrangler.jsonc --port 8788",
+    "probar:worker": "wrangler dev --port 8787 --var GRAPH_URL:http://127.0.0.1:8790 --var META_APP_SECRET:secreto-de-prueba --var WHATSAPP_VERIFY_TOKEN:palabra-de-prueba --var WHATSAPP_TOKEN:x --var WHATSAPP_PHONE_ID:1",
+    "probar:punta": "node prueba/meta-falsa.mjs",
+    "conectar": "node scripts/conectar-webhook.mjs",
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261023.1",
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2",
+    "wrangler": "^4.152.0"
+  }
+}

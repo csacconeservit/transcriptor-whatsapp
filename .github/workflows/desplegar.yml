@@ -1,0 +1,43 @@
+# Cada push a main se controla y se despliega desde acá, a la vista de todos.
+# El Worker queda con el commit desplegado: GET a su URL devuelve { codigo, version }.
+# Secretos del repositorio: CLOUDFLARE_API_TOKEN (permiso "Edit Cloudflare Workers") y CLOUDFLARE_ACCOUNT_ID.
+name: Desplegar
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  controlar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx tsc --noEmit
+
+  desplegar:
+    needs: controlar
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: >-
+          npx wrangler deploy
+          --var VERSION:${{ github.sha }}
+          --var CODIGO:${{ github.server_url }}/${{ github.repository }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

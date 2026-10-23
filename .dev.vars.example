@@ -1,0 +1,9 @@
+# Copiar a .dev.vars (no se sube al repo). En producción van con `npx wrangler secret put NOMBRE`.
+WHATSAPP_TOKEN=
+WHATSAPP_PHONE_ID=
+META_APP_SECRET=
+WHATSAPP_VERIFY_TOKEN=
+# Solo para scripts/conectar-webhook.mjs
+WORKER_URL=
+META_APP_ID=
+WHATSAPP_BUSINESS_ACCOUNT_ID=
