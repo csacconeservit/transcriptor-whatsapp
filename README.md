@@ -35,7 +35,7 @@ El webhook contesta enseguida y deja el audio en la cola. El consumidor de la co
    npx wrangler secret put WHATSAPP_VERIFY_TOKEN   # una palabra cualquiera, larga
    ```
 4. **Publicar**: con push a `main`, GitHub Actions lo despliega solo. Antes hay que cargar los secretos
-   `CLOUDFLARE_API_TOKEN` y `CLOUDFLARE_ACCOUNT_ID` en el repositorio. A mano: `npm run deploy`.
+   `CLOUDFLARE_API_TOKEN1` y `CLOUDFLARE_ACCOUNT_ID` en el repositorio. A mano: `npm run deploy`.
    La URL queda en `https://transcriptor-whatsapp.<subdominio>.workers.dev`.
 5. **Conectar el webhook**: copiar `.dev.vars.example` a `.dev.vars`, completarlo (con la URL del paso 4
    en `WORKER_URL`) y ejecutar `npm run conectar`.

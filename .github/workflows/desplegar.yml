@@ -1,6 +1,6 @@
 # Cada push a main se controla y se despliega desde acá, a la vista de todos.
 # El Worker queda con el commit desplegado: GET a su URL devuelve { codigo, version }.
-# Secretos del repositorio: CLOUDFLARE_API_TOKEN (permiso "Edit Cloudflare Workers") y CLOUDFLARE_ACCOUNT_ID.
+# Secretos del repositorio: CLOUDFLARE_API_TOKEN1 (permiso "Edit Cloudflare Workers") y CLOUDFLARE_ACCOUNT_ID.
 name: Desplegar
 
 on:
@@ -39,5 +39,5 @@ jobs:
           --var VERSION:${{ github.sha }}
           --var CODIGO:${{ github.server_url }}/${{ github.repository }}
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN1 }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
