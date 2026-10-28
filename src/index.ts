@@ -10,6 +10,7 @@
 // (quién mandó, el mensaje y el audio), que se borran al procesarse. El audio y el texto viven
 // solo en la memoria del consumidor. Los logs nunca llevan teléfonos, ids, nombres ni texto:
 // solo tipos, tamaños y tiempos. Ver PRIVACIDAD.md.
+import { PRIVACIDAD } from './privacidad';
 import { transcribir, type EnvIA } from './transcribir';
 import { bajarMedio, firmaValida, GRAPH, leidoYEscribiendo, responderTexto, type Cfg } from './whatsapp';
 
@@ -37,6 +38,9 @@ export default {
   async fetch(req: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(req.url);
 
+    if (req.method === 'GET' && url.pathname === '/privacidad') {
+      return new Response(PRIVACIDAD, { headers: { 'content-type': 'text/html; charset=utf-8' } });
+    }
     // Cualquiera puede ver de qué commit del repositorio público sale lo que corre.
     if (req.method === 'GET' && !url.searchParams.has('hub.mode')) {
       return Response.json({ codigo: env.CODIGO ?? null, version: env.VERSION ?? 'local' });
